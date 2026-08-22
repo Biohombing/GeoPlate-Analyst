@@ -13,6 +13,12 @@ The application provides both the official ITRF2020 Plate Motion Model and regio
 
 ### 1. Install dependencies
 
+## Requirements
+
+- Python 3.x
+- Operating system: Windows / Linux / macOS
+- Dependencies listed in `requirements.txt`
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -42,14 +48,12 @@ python main.py
 | 📄 Export CSV | Flat format, ready for further processing |
 | 🖼 Save Map | High-resolution PNG (200 dpi) |
 | 💾 Save Project | JSON format (.smp), restores the session |
-| 🌐 Euler Pole Models| ITRF2020, regional Sundaland estimates, and manual parameters |
+| 🌐 Euler Pole Models | ITRF2020, regional Sundaland estimates, and manual parameters |
 
 ---
 
 ## 🗂 Project Structure
 
-```
-## Project Structure
 
 ```text
 GeoPlate-Analyst/
@@ -124,15 +128,6 @@ Excel / CSV / PNG / PDF / .smp
 
 ---
 
-## 📚 References
-
-## References
-
-- Simons, W. J. F., et al. (2007). A decade of GPS in Southeast Asia: Systematic analysis of GPS data and its implications for plate motions. *Journal of Geophysical Research: Solid Earth*, 112, B06401.
-- Bird, P. (2003). An updated digital model of plate boundaries. *Geochemistry, Geophysics, Geosystems*, 4(3), 1027.
-- Altamimi, Z., Rebischung, P., Métivier, L., & Collilieux, X. (2023). ITRF2020: A new release of the International Terrestrial Reference Frame modeling Earth’s dynamic evolution. *Journal of Geophysical Research: Solid Earth*.
----
-
 ## 📋 Input File Format
 
 ### CSV / Excel
@@ -143,15 +138,16 @@ Must have the following columns (names are not case-sensitive):
 | `lat` / `latitude` / `lintang` | `lon` / `longitude` / `bujur` | `name` / `nama` / `lokasi` |
 
 ### Shapefile
-All geometry types are supported:
+The following Shapefile geometry types are supported:
 - **Point** → coordinates used directly
 - **Polygon** → centroid
 - **LineString** → midpoint
 
-CRS is automatically converted to WGS84 (EPSG:4326).
+For Shapefile input, the source coordinate reference system is automatically transformed to WGS84 (EPSG:4326) when required.
+
 ### Coordinate Reference System
 
-Input coordinates are interpreted as geographic coordinates in WGS84 (EPSG:4326). For Shapefile input, the source coordinate reference system is automatically transformed to WGS84 when required.
+Input coordinates are interpreted as geographic coordinates in WGS84 (EPSG:4326).
 
 ## Building the Standalone Application
 
@@ -165,6 +161,23 @@ The repository includes:
 - `BUILD.bat` — Windows build script
 - `build.sh` — Unix-like build script
 
+
 ## Citation
 
 If you use GeoPlate Analyst in academic research, please cite the associated software publication when available.
+
+
+## License
+
+GeoPlate Analyst is released under the MIT License.
+
+See the [LICENSE](LICENSE) file for the full license text.
+
+
+## 📚 References
+
+
+- Simons, W. J. F., et al. (2007). A decade of GPS in Southeast Asia: Systematic analysis of GPS data and its implications for plate motions. *Journal of Geophysical Research: Solid Earth*, 112, B06401.
+- Bird, P. (2003). An updated digital model of plate boundaries. *Geochemistry, Geophysics, Geosystems*, 4(3), 1027.
+- Altamimi, Z., Rebischung, P., Métivier, L., & Collilieux, X. (2023). ITRF2020: A new release of the International Terrestrial Reference Frame modeling Earth’s dynamic evolution. *Journal of Geophysical Research: Solid Earth*.
+---
