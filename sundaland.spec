@@ -36,7 +36,10 @@ except ImportError:
 datas += collect_data_files('matplotlib')
 
 # UI stylesheet
-datas += [('ui/style.qss', 'ui')]
+datas += [('ui/style_light.qss', 'ui'), ('ui/style_dark.qss', 'ui')]
+
+# Ikon compass untuk tombol rose diagram di ResultWindow
+datas += [('assets/compass_rose.png', 'assets')]
 
 # ── Hidden imports (libraries not detected automatically) ─────────────────────
 
