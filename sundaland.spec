@@ -19,7 +19,7 @@ block_cipher = None
 
 datas = []
 
-# Cartopy: needs its internal shapefile data (coastline, borders, etc.)
+# Cartopy: Requires internal shapefile data (coastlines, borders, etc.)
 try:
     import cartopy
     cartopy_dir = os.path.dirname(cartopy.__file__)
@@ -32,18 +32,19 @@ try:
 except ImportError:
     pass
 
-# Matplotlib: font and style data
+# Matplotlib: data fonts dan style
 datas += collect_data_files('matplotlib')
 
 # UI stylesheet
 datas += [('ui/style_light.qss', 'ui'), ('ui/style_dark.qss', 'ui')]
-
-# Ikon compass untuk tombol rose diagram di ResultWindow
 datas += [('assets/compass_rose.png', 'assets')]
+# Natural Earth map data (50m) previously downloaded and cached by Cartopy
+# on the build computer (see the guide) -> bundled into ‘cartopy_data’ inside the .exe.
+datas += [(r'GANTI_DENGAN_PATH_HASIL_LANGKAH_2', 'cartopy_data')]
 
 # ── Hidden imports (libraries not detected automatically) ─────────────────────
 
-hiddenimports = []
+hiddenimports = ['PIL', 'PIL._imaging']
 
 # Cartopy submodules
 hiddenimports += collect_submodules('cartopy')
@@ -70,7 +71,7 @@ hiddenimports += [
     'openpyxl.utils',
 ]
 
-# Numpy & Scipy (used internally by Cartopy)
+# Numpy & Scipy (Used internally by Cartopy)
 hiddenimports += [
     'numpy',
     'numpy.core._multiarray_umath',
@@ -79,10 +80,10 @@ hiddenimports += [
     'scipy.spatial',
 ]
 
-# Shapely (used by Cartopy)
+# Shapely (dipakai Cartopy)
 hiddenimports += collect_submodules('shapely')
 
-# ── Analysis ────────────────────────────────────────────────────────────────────
+# ── Analysis ──────────────────────────────────────────────────────────────────
 
 a = Analysis(
     ['main.py'],
@@ -94,7 +95,7 @@ a = Analysis(
     hooksconfig={},
     runtime_hooks=[],
     excludes=[
-        # Exclude what isn't used (reduces file size)
+        # Exclude unused files (reduce file size)
         'tkinter',
         'wx',
         'PySide2',
@@ -105,8 +106,7 @@ a = Analysis(
         'notebook',
         'pytest',
         'sphinx',
-        'PIL',          # Pillow not used
-        'cv2',          # OpenCV not used
+        'cv2',          # OpenCV is not used
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
@@ -123,18 +123,18 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='GeoPlate Analyst',              # .exe file name
+    name='GeoPlate Analyst',          # .exe file name
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,                             # Compress with UPX (reduces size)
+    upx=True,                            # Compress with UPX (reduce file size)
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,                        # False = no black console window
+    console=False,                       # False = no black terminal window
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    # icon='assets/icon.ico',             # Uncomment if an .ico icon file exists
+    # icon='assets/icon.ico',            # Uncomment if there is an .ico icon file
 )

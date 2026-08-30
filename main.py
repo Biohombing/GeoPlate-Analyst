@@ -3,11 +3,11 @@ main.py
 Entry point for GeoPlate Analyst.
 
 Run with:
-    python main.py           <- development mode
-    GeoPlate Analyst.exe     <- distribution mode (PyInstaller build output)
+    python main.py          <- mode development
+    Geoplate Analyst.exe  <- distribution mode (PyInstaller build output)
 
 Requirements:
-    pip install PyQt6 cartopy geopandas contextily pandas openpyxl matplotlib numpy
+    pip install PyQt6, cartopy, geopandas, contextily, pandas, openpyxl, matplotlib, numpy
 """
 
 import sys
@@ -26,6 +26,11 @@ else:
 
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
+
+# Point Cartopy to the map data (Natural Earth) that is already bundled within
+# .exe, so the application does NOT need to download anything when it is first run.
+if getattr(sys, 'frozen', False):
+    os.environ['CARTOPY_DATA_DIR'] = os.path.join(ROOT, 'cartopy_data')
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
