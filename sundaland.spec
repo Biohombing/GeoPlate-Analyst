@@ -40,7 +40,7 @@ datas += [('ui/style_light.qss', 'ui'), ('ui/style_dark.qss', 'ui')]
 datas += [('assets/compass_rose.png', 'assets')]
 # Natural Earth map data (50m) previously downloaded and cached by Cartopy
 # on the build computer (see the guide) -> bundled into ‘cartopy_data’ inside the .exe.
-datas += [(r'GANTI_DENGAN_PATH_HASIL_LANGKAH_2', 'cartopy_data')]
+datas += [(r'C:\Users\HP\.local\share\cartopy', 'cartopy_data')]
 
 # ── Hidden imports (libraries not detected automatically) ─────────────────────
 
