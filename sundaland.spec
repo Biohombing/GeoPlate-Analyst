@@ -32,12 +32,15 @@ try:
 except ImportError:
     pass
 
-# Matplotlib: data fonts dan style
+# Matplotlib: fonts and styles
 datas += collect_data_files('matplotlib')
 
 # UI stylesheet
 datas += [('ui/style_light.qss', 'ui'), ('ui/style_dark.qss', 'ui')]
 datas += [('assets/compass_rose.png', 'assets')]
+# App logo (title bar / taskbar when running) — the file must be located in assets/icon.ico
+if os.path.exists('assets/icon.ico'):
+    datas += [('assets/icon.ico', 'assets')]
 # Natural Earth map data (50m) previously downloaded and cached by Cartopy
 # on the build computer (see the guide) -> bundled into ‘cartopy_data’ inside the .exe.
 datas += [(r'C:\Users\HP\.local\share\cartopy', 'cartopy_data')]
@@ -71,7 +74,7 @@ hiddenimports += [
     'openpyxl.utils',
 ]
 
-# Numpy & Scipy (Used internally by Cartopy)
+# Numpy & Scipy (Used internally by Carto
 hiddenimports += [
     'numpy',
     'numpy.core._multiarray_umath',
@@ -80,7 +83,7 @@ hiddenimports += [
     'scipy.spatial',
 ]
 
-# Shapely (dipakai Cartopy)
+# Shapely (used by Cartopy)
 hiddenimports += collect_submodules('shapely')
 
 # ── Analysis ──────────────────────────────────────────────────────────────────
@@ -136,5 +139,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    # icon='assets/icon.ico',            # Uncomment if there is an .ico icon file
+    icon='assets/icon.ico' if os.path.exists('assets/icon.ico') else None,
 )

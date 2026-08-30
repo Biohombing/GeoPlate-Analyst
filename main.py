@@ -34,7 +34,7 @@ if getattr(sys, 'frozen', False):
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QFont, QIcon
 
 from ui.main_window import MainWindow
 from core.constants import APP_NAME, APP_VERSION
@@ -57,6 +57,12 @@ def main():
     app.setApplicationVersion(APP_VERSION)
     app.setOrganizationName("GeodynamicsLab")
 
+    # App logo/icon (title bar, taskbar when running).
+    # Replace or add a file in assets/icon.ico to change the logo.
+    icon_path = os.path.join(ROOT, "assets", "icon.ico")
+    if os.path.exists(icon_path):
+        app.setWindowIcon(QIcon(icon_path))
+
     # Set explicit font to avoid QFont::setPointSize warnings at HiDPI
     font = QFont()
     font.setFamily("Segoe UI")
@@ -64,7 +70,6 @@ def main():
     app.setFont(font)
     
     # Suppress verbose Qt warnings (cosmetic only, not errors)
-    import os
     os.environ.setdefault('QT_LOGGING_RULES', '*.debug=false;qt.qpa.fonts=false')
 
     load_stylesheet(app)
