@@ -383,21 +383,30 @@ class LayerRenderer:
             ex_r = c.lon + c.res_vE * sc
             ey_r = c.lat + c.res_vN * sc
             if HAS_CARTOPY:
-                self.ax.plot([c.lon, ex_r], [c.lat, ey_r],
-                             color='#FF8800', lw=1.0, ls='--', zorder=27,
-                             transform=ccrs.PlateCarree())
+                pc = ccrs.PlateCarree()._as_mpl_transform(self.ax)
+                self.ax.annotate("", xy=(ex_r, ey_r), xytext=(c.lon, c.lat),
+                                 xycoords=pc, textcoords=pc,
+                                 arrowprops=dict(
+                                     arrowstyle='-|>', color='#0055FF',
+                                     lw=1.2, mutation_scale=7),
+                                 zorder=27)
             else:
-                self.ax.plot([c.lon, ex_r], [c.lat, ey_r],
-                             color='#FF8800', lw=1.0, ls='--', zorder=27)
+                self.ax.annotate("", xy=(ex_r, ey_r), xytext=(c.lon, c.lat),
+                                 arrowprops=dict(
+                                     arrowstyle='-|>', color='#0055FF',
+                                     lw=1.2, mutation_scale=7),
+                                 zorder=27)
 
         import matplotlib.lines as mlines
+        import matplotlib.patches as mpatches
         lbl_c = "#dddddd" if self.dark else "#111111"
         self.ax.legend(
             handles=[
-                mlines.Line2D([], [], color=lbl_c,      lw=1.2, label="Euler"),
-                mlines.Line2D([], [], color="#CC0000",   lw=1.2, label="GPS"),
-                mlines.Line2D([], [], color="#FF8800",   lw=1.0, ls="--",
-                              label="Residual"),
+                mlines.Line2D([], [], color=lbl_c,    lw=1.2, label="Euler"),
+                mlines.Line2D([], [], color="#CC0000", lw=1.2, label="GPS"),
+                mpatches.FancyArrow(0, 0, 1, 0, color='#0055FF',
+                                    width=0.3, head_width=1.0,
+                                    label="Residual"),
             ],
             loc="lower right", fontsize=7, framealpha=0.85,
             facecolor=leg_fc, edgecolor=leg_ec, labelcolor=lbl_c)
